@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Китайский покер</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="description" content="Китайский покер - онлайн игра против ИИ">
+    <meta name="theme-color" content="#4CAF50">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Индикатор загрузки -->
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <span>Загрузка...</span>
+        </div>
+
+        <!-- Статус игры -->
+        <div class="game-status">
+            <div class="street-indicator">
+                Улица: <span id="current-street">0</span>
+            </div>
+            <div class="timer" id="timer">30</div>
+        </div>
+
+        <!-- Стол ИИ -->
+        <div class="table ai-table">
+            <div class="player-info">
+                <span class="player-name">Компьютер</span>
+                <span class="player-score" id="ai-score">0</span>
+            </div>
+            <div class="row top-row">
+                <div class="card-slot" data-position="0"></div>
+                <div class="card-slot" data-position="1"></div>
+                <div class="card-slot" data-position="2"></div>
+            </div>
+            <div class="row middle-row">
+                <div class="card-slot" data-position="0"></div>
+                <div class="card-slot" data-position="1"></div>
+                <div class="card-slot" data-position="2"></div>
+                <div class="card-slot" data-position="3"></div>
+                <div class="card-slot" data-position="4"></div>
+            </div>
+            <div class="row bottom-row">
+                <div class="card-slot" data-position="0"></div>
+                <div class="card-slot" data-position="1"></div>
+                <div class="card-slot" data-position="2"></div>
+                <div class="card-slot" data-position="3"></div>
+                <div class="card-slot" data-position="4"></div>
+            </div>
+        </div>
+
+        <!-- Рука игрока -->
+        <div class="player-hand" id="player-hand"></div>
+
+        <!-- Стол игрока -->
+        <div class="table player-table">
+            <div class="player-info">
+                <span class="player-name">Игрок</span>
+                <span class="player-score" id="player-score">0</span>
+            </div>
+            <div class="row top-row">
+                <div class="card-slot" data-row="top" data-position="0"></div>
+                <div class="card-slot" data-row="top" data-position="1"></div>
+                <div class="card-slot" data-row="top" data-position="2"></div>
+            </div>
+            <div class="row middle-row">
+                <div class="card-slot" data-row="middle" data-position="0"></div>
+                <div class="card-slot" data-row="middle" data-position="1"></div>
+                <div class="card-slot" data-row="middle" data-position="2"></div>
+                <div class="card-slot" data-row="middle" data-position="3"></div>
+                <div class="card-slot" data-row="middle" data-position="4"></div>
+            </div>
+            <div class="row bottom-row">
+                <div class="card-slot" data-row="bottom" data-position="0"></div>
+                <div class="card-slot" data-row="bottom" data-position="1"></div>
+                <div class="card-slot" data-row="bottom" data-position="2"></div>
+                <div class="card-slot" data-row="bottom" data-position="3"></div>
+                <div class="card-slot" data-row="bottom" data-position="4"></div>
+            </div>
+        </div>
+
+        <!-- Управление -->
+        <div class="controls">
+            <button id="start-btn" class="btn">Начать</button>
+            <button id="ok-btn" class="btn" disabled>Ок</button>
+        </div>
+
+        <!-- Подсчет очков -->
+        <div class="scoring" style="display: none;">
+            <h2>Результаты</h2>
+            <div class="score-table">
+                <div class="score-row header">
+                    <div class="score-cell">Линия</div>
+                    <div class="score-cell">Игрок</div>
+                    <div class="score-cell">Компьютер</div>
+                </div>
+                <div class="score-row">
+                    <div class="score-cell">Верхняя</div>
+                    <div class="score-cell" id="top-score-player">0</div>
+                    <div class="score-cell" id="top-score-ai">0</div>
+                </div>
+                <div class="score-row">
+                    <div class="score-cell">Средняя</div>
+                    <div class="score-cell" id="middle-score-player">0</div>
+                    <div class="score-cell" id="middle-score-ai">0</div>
+                </div>
+                <div class="score-row">
+                    <div class="score-cell">Нижняя</div>
+                    <div class="score-cell" id="bottom-score-player">0</div>
+                    <div class="score-cell" id="bottom-score-ai">0</div>
+                </div>
+                <div class="score-row total">
+                    <div class="score-cell">Итого</div>
+                    <div class="score-cell" id="total-score-player">0</div>
+                    <div class="score-cell" id="total-score-ai">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Всплывающие сообщения -->
+        <div class="toast-container" id="toast-container"></div>
+    </div>
+
+    <!-- Модальное окно для фантазии -->
+    <div class="modal" id="fantasy-modal">
+        <div class="modal-content">
+            <h2>Фантазия!</h2>
+            <p>Вы собрали комбинацию для фантазии. Хотите продолжить?</p>
+            <div class="modal-buttons">
+                <button class="btn" id="fantasy-yes">Да</button>
+                <button class="btn" id="fantasy-no">Нет</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/cards.js"></script>
+    <script src="/static/js/animation.js"></script>
+    <script src="/static/js/game.js"></script>
+</body>
+</html>
